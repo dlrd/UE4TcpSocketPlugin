@@ -12,5 +12,5 @@ class TCPSOCKETPLUGIN_API UTcpSocketSettings : public UObject
 public:
 	/** Post errors to message log. */
 	UPROPERTY(Config, EditAnywhere, Category = "TcpSocketPlugin")
-	bool bPostErrorsToMessageLog;	
+	bool bPostErrorsToMessageLog;
 };

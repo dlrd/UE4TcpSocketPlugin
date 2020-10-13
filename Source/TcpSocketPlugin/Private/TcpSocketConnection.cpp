@@ -274,18 +274,21 @@ bool ATcpSocketConnection::isConnected(int32 ConnectionId)
 
 void ATcpSocketConnection::PrintToConsole(FString Str, bool Error)
 {
-	if (auto tcpSocketSettings = GetDefault<UTcpSocketSettings>())
+	if (Error)
 	{
-		if (Error && tcpSocketSettings->bPostErrorsToMessageLog)
+		if (auto tcpSocketSettings = GetDefault<UTcpSocketSettings>())
 		{
-			auto messageLog = FMessageLog("Tcp Socket Plugin");
-			messageLog.Open(EMessageSeverity::Error, true);
-			messageLog.Message(EMessageSeverity::Error, FText::AsCultureInvariant(Str));
+			if (tcpSocketSettings->bPostErrorsToMessageLog)
+			{
+				auto messageLog = FMessageLog("Tcp Socket Plugin");
+				messageLog.Open(EMessageSeverity::Error, true);
+				messageLog.Message(EMessageSeverity::Error, FText::AsCultureInvariant(Str));
+			}
 		}
-		else
-		{
-			UE_LOG(LogTemp, Log, TEXT("Log: %s"), *Str);
-		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("Log: %s"), *Str);
 	}
 }
 
@@ -459,7 +462,7 @@ uint32 FTcpSocketWorker::Run()
 				break;
 			}
 
-			AsyncTask(ENamedThreads::GameThread, []() { ATcpSocketConnection::PrintToConsole("Pending data", false); });
+			//AsyncTask(ENamedThreads::GameThread, []() { ATcpSocketConnection::PrintToConsole("Pending data", false); });
 
 			receivedData.SetNumUninitialized(BytesReadTotal + PendingDataSize);
 
