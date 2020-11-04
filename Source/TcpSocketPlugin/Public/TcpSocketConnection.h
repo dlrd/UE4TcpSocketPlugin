@@ -66,6 +66,9 @@ public:
 	//UFUNCTION(Category = "Socket")
 	void ExecuteOnMessageReceived(int32 ConnectionId, TWeakObjectPtr<ATcpSocketConnection> thisObj);
 
+  virtual void receiveDataSynchroneously(int32 ConnectionId, TArray<uint8>& receivedData)
+    {}
+
 	/*UFUNCTION(BlueprintPure, meta = (DisplayName = "Append Bytes", CommutativeAssociativeBinaryOperator = "true"), Category = "Socket")
 	static TArray<uint8> Concat_BytesBytes(const TArray<uint8>& A, const TArray<uint8>& B);*/
 

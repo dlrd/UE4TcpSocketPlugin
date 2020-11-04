@@ -482,6 +482,10 @@ uint32 FTcpSocketWorker::Run()
 		if (bRun /*SMODE TECH */ && receivedData.Num() != 0)
 		{
 			Inbox.Enqueue(receivedData);
+      //UE_LOG(LogTemp, Log, TEXT("Process Network Batch"));
+      ATcpSocketConnection* connection = ThreadSpawnerActor.Get();
+      if (connection)
+        connection->receiveDataSynchroneously(id, receivedData);
 			AsyncTask(ENamedThreads::GameThread, [this]() {
 				ThreadSpawnerActor.Get()->ExecuteOnMessageReceived(id, ThreadSpawnerActor);
 			});			
