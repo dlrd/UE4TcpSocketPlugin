@@ -274,19 +274,20 @@ bool ATcpSocketConnection::isConnected(int32 ConnectionId)
 
 void ATcpSocketConnection::PrintToConsole(FString Str, bool Error)
 {
-	if (auto tcpSocketSettings = GetDefault<UTcpSocketSettings>()) // SMODE TECH
-	{
-		if (Error && tcpSocketSettings->bPostErrorsToMessageLog)
-		{
-			auto messageLog = FMessageLog("Tcp Socket Plugin");
-			messageLog.Open(EMessageSeverity::Error, true);
-			messageLog.Message(EMessageSeverity::Error, FText::AsCultureInvariant(Str));
-		}
-		else
-		{
+	// todo : fix - causes crashes at closing
+	//if (auto tcpSocketSettings = GetDefault<UTcpSocketSettings>()) // SMODE TECH
+	//{
+	//	if (Error && tcpSocketSettings->bPostErrorsToMessageLog*)
+	//	{
+	//		auto messageLog = FMessageLog("Tcp Socket Plugin");
+	//		messageLog.Open(EMessageSeverity::Error, true);
+	//		messageLog.Message(EMessageSeverity::Error, FText::AsCultureInvariant(Str));
+	//	}
+	//	else
+	//	{
 			UE_LOG(LogTemp, Log, TEXT("Log: %s"), *Str);
-		}
-	}
+	//	}
+	//}
 }
 
 void ATcpSocketConnection::ExecuteOnConnected(int32 WorkerId, TWeakObjectPtr<ATcpSocketConnection> thisObj)
