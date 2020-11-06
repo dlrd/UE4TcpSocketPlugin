@@ -192,6 +192,28 @@ int32 ATcpSocketConnection::Message_ReadInt(TArray<uint8>& Message)
 	return result;
 }
 
+int32 ATcpSocketConnection::Message_ReadBigEndianInt(TArray<uint8>& Message)
+{
+#if PLATFORM_LITTLE_ENDIAN
+	check(FPlatformProperties::IsLittleEndian());
+	return ByteSwap(Message_ReadInt(Message));
+#else
+	check(!FPlatformProperties::IsLittleEndian());
+	return Message_ReadInt(Message);
+#endif //PLATFORM_LITTLE_ENDIAN
+}
+
+int32 ATcpSocketConnection::Message_ReadLittleEndianInt(TArray<uint8>& Message)
+{
+#if PLATFORM_LITTLE_ENDIAN
+	check(FPlatformProperties::IsLittleEndian());
+	return Message_ReadInt(Message);
+#else
+	check(!FPlatformProperties::IsLittleEndian());
+	return ByteSwap(Message_ReadInt(Message));
+#endif //PLATFORM_LITTLE_ENDIAN
+}
+
 uint8 ATcpSocketConnection::Message_ReadByte(TArray<uint8>& Message)
 {
 	if (Message.Num() < 1)

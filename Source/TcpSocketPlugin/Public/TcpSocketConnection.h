@@ -94,6 +94,12 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Read Int", Keywords = "read int"), Category = "Socket")
 	static int32 Message_ReadInt(UPARAM(ref) TArray<uint8>& Message);
 
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Read Big Endian Int", Keywords = "read big endian int"), Category = "Socket")
+	static int32 Message_ReadBigEndianInt(UPARAM(ref) TArray<uint8>& Message);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Read Little Endian Int", Keywords = "read little endian int"), Category = "Socket")
+	static int32 Message_ReadLittleEndianInt(UPARAM(ref) TArray<uint8>& Message);
+
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Read Byte", Keywords = "read byte int8 uint8"), Category = "Socket")
 	static uint8 Message_ReadByte(UPARAM(ref) TArray<uint8>& Message);
 
